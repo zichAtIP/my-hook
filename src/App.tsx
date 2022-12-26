@@ -1,24 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useUsers } from './useUsers';
 
 function App() {
+
+  const { users, loading, error } = useUsers();
+
+  if (error) {
+    return (<h1>An error occurred</h1>)
+  }
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {loading ? <p>loading</p> : users.map(user => <p>{user.name} {user.email}</p>)}
     </div>
   );
 }
